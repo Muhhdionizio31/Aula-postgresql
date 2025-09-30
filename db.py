@@ -12,3 +12,20 @@ params = {
     "port": os.getenv("DB_PORT"),
 
 }
+
+def conectar():
+    try:
+        conexao = pg.connect(**params)
+        cursor = conexao.cursor()
+        return conexao, cursor
+    except Exception as erro:
+        print(f"Erro de conexão {erro}")
+        return None, None
+
+conexao, cursor = conectar()
+cursor.execute(
+    "INSERT INTO alunos (nome, idade) VALUES (%s, %s)",
+    ("Murilo", 33)
+    )
+conexao.commit()
+conexao.close()
