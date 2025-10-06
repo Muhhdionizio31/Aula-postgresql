@@ -14,3 +14,13 @@ def criar_alunos(nome, idade):
         finally:
             cursor.close()
             conexao.close()
+
+def listar_alunos():
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute("SELECT * FROM alunos ORDER BY id")
+            return cursor.fetchall()
+        except Exception as erro:
+            print(f"Erro ao tentar listar alunos: {erro}")
+        return None, None
